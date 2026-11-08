@@ -414,6 +414,45 @@ button.btn{font:inherit;font-weight:700;color:#000;cursor:pointer}
 #mailbox .mts{min-height:70px;margin-top:6px}
 #mailbox .mts iframe{max-width:100%}
 #mb-cancel[hidden],#mb-res[hidden],#mb-ask[hidden]{display:none}
+
+/* scrolling project gallery */
+.codegrid{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:clamp(28px,5vw,72px);align-items:center}
+.gal{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;height:min(580px,74vh);overflow:hidden;padding:6px 10px 6px 6px;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 91%,transparent)}
+.gal-col{overflow:hidden;min-width:0}
+.gal-track{display:flex;flex-direction:column;will-change:transform}
+.gal-set{display:flex;flex-direction:column;gap:14px;padding-bottom:14px}
+.gal-col.up .gal-track{animation:galUp 42s linear infinite}
+.gal-col.down .gal-track{animation:galDown 48s linear infinite}
+.gal-col:nth-child(3).up .gal-track{animation-duration:36s}
+@keyframes galUp{to{transform:translateY(-50%)}}
+@keyframes galDown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+.gal:hover .gal-track,.gal:focus-within .gal-track{animation-play-state:paused}
+.gt{display:flex;flex-direction:column;background:#fff;color:#000;text-decoration:none;border:var(--bw) solid #000;border-radius:var(--r);box-shadow:5px 5px 0 #000;overflow:hidden;transition:transform .12s,box-shadow .12s;cursor:pointer}
+.gt:hover,.gt:focus-visible{transform:translate(-2px,-2px);box-shadow:8px 8px 0 #000}
+.gt:active{transform:translate(4px,4px);box-shadow:0 0 0 #000}
+.gt img{display:block;width:100%;height:150px;object-fit:cover;object-position:50% 40%;border-bottom:var(--bw) solid #000}
+.gt .tx{display:flex;flex-direction:column;gap:2px;padding:14px 16px 16px}
+.gt b{font:800 1.45rem/1 var(--display);text-transform:uppercase}
+.gt i{font-style:normal;font-weight:600;font-size:.85rem}
+.gal-set .gt:nth-child(5n+1){background:#fff}
+.gal-set .gt:nth-child(5n+2){background:var(--mint)}
+.gal-set .gt:nth-child(5n+3){background:var(--pink)}
+.gal-set .gt:nth-child(5n+4){background:var(--lilac)}
+.gal-set .gt:nth-child(5n+5){background:var(--orange)}
+.gal-col:nth-child(2) .gt:nth-child(1){background:var(--lilac)}
+.gal-col:nth-child(3) .gt:nth-child(1){background:var(--mint)}
+.gal .gt:has(img){background:#fff}
+.gal-set .gt:focus-visible{outline:3px solid #000;outline-offset:3px}
+@media(max-width:900px){
+  .codegrid{grid-template-columns:1fr}
+  .gal{height:440px}
+}
+@media(prefers-reduced-motion:reduce){
+  .gal{height:auto;overflow:visible;-webkit-mask-image:none;mask-image:none}
+  .gal-track{animation:none!important;transform:none!important}
+  .gal-dup{display:none}
+}
 </style>
 </head>
 <body>
@@ -554,10 +593,13 @@ button.btn{font:inherit;font-weight:700;color:#000;cursor:pointer}
   </div>
 </div></section>
 
-<section id="code"><div class="wrap">
-  <h2>On GitHub</h2>
-  <p class="codep">28 repositories, from robots to web apps.</p>
-  <div class="cta"><a class="btn solid" href="https://github.com/sravannotshravan?tab=repositories" target="_blank" rel="noopener">All repositories</a><a class="btn" href="https://www.linkedin.com/in/sravan-kowsik-g/" target="_blank" rel="noopener" style="background:#fff">LinkedIn</a></div>
+<section id="code"><div class="wrap codegrid">
+  <div class="codetxt">
+    <h2>On GitHub</h2>
+    <p class="codep">28 repositories, from robots to web apps. Tap a tile to jump to the project.</p>
+    <div class="cta"><a class="btn solid" href="https://github.com/sravannotshravan?tab=repositories" target="_blank" rel="noopener">All repositories</a><a class="btn" href="https://www.linkedin.com/in/sravan-kowsik-g/" target="_blank" rel="noopener" style="background:#fff">LinkedIn</a></div>
+  </div>
+  <div class="gal" aria-label="My projects"><div class="gal-col up"><div class="gal-track"><div class="gal-set"><a class="gt" href="#work" data-go="agrisight"><img src="agrisight.jpg" alt="The AgriSight robot" loading="lazy"><span class="tx"><b>AgriSight</b><i>Patent in progress</i></span></a><a class="gt" href="#work" data-go="Student Dropout Predictor"><span class="tx"><b>Student Dropout Predictor</b><i>Flask, React</i></span></a><a class="gt" href="#work" data-go="Pi Gesture Detection"><span class="tx"><b>Pi Gesture Detection</b><i>MediaPipe</i></span></a><a class="gt" href="#work" data-go="BeetleBot"><span class="tx"><b>BeetleBot</b><i>ROS 2</i></span></a></div><div class="gal-set gal-dup" aria-hidden="true"><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="agrisight"><img src="agrisight.jpg" alt="The AgriSight robot" loading="lazy"><span class="tx"><b>AgriSight</b><i>Patent in progress</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Student Dropout Predictor"><span class="tx"><b>Student Dropout Predictor</b><i>Flask, React</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Pi Gesture Detection"><span class="tx"><b>Pi Gesture Detection</b><i>MediaPipe</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="BeetleBot"><span class="tx"><b>BeetleBot</b><i>ROS 2</i></span></a></div></div></div><div class="gal-col down"><div class="gal-track"><div class="gal-set"><a class="gt" href="#work" data-go="6-DOF Pick and Place Arm"><img src="arm.jpg" alt="The 6-DOF robotic arm" loading="lazy"><span class="tx"><b>6-DOF Pick and Place Arm</b><i>Arduino</i></span></a><a class="gt" href="#work" data-go="Ethical Exam Proctoring"><span class="tx"><b>Ethical Exam Proctoring</b><i>Python, OpenCV</i></span></a><a class="gt" href="#work" data-go="Emberline"><span class="tx"><b>Emberline</b><i>Flask, AWS</i></span></a><a class="gt" href="#work" data-go="Drone Payload Balancer"><span class="tx"><b>Drone Payload Balancer</b><i>Unreal Engine 5</i></span></a></div><div class="gal-set gal-dup" aria-hidden="true"><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="6-DOF Pick and Place Arm"><img src="arm.jpg" alt="The 6-DOF robotic arm" loading="lazy"><span class="tx"><b>6-DOF Pick and Place Arm</b><i>Arduino</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Ethical Exam Proctoring"><span class="tx"><b>Ethical Exam Proctoring</b><i>Python, OpenCV</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Emberline"><span class="tx"><b>Emberline</b><i>Flask, AWS</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Drone Payload Balancer"><span class="tx"><b>Drone Payload Balancer</b><i>Unreal Engine 5</i></span></a></div></div></div><div class="gal-col up"><div class="gal-track"><div class="gal-set"><a class="gt" href="#work" data-go="charcha"><img src="charcha.jpg" alt="CharchaNotes transcript and summary" loading="lazy"><span class="tx"><b>CharchaNotes</b><i>Local-first AI</i></span></a><a class="gt" href="#work" data-go="Ball Balancer Drone"><span class="tx"><b>Ball Balancer Drone</b><i>JavaScript</i></span></a><a class="gt" href="#work" data-go="Recruitment ATS"><span class="tx"><b>Recruitment ATS</b><i>PWA</i></span></a><a class="gt" href="#work" data-go="Autonomous 4WD Mapping Rover"><span class="tx"><b>Autonomous 4WD Rover</b><i>Raspberry Pi</i></span></a></div><div class="gal-set gal-dup" aria-hidden="true"><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="charcha"><img src="charcha.jpg" alt="CharchaNotes transcript and summary" loading="lazy"><span class="tx"><b>CharchaNotes</b><i>Local-first AI</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Ball Balancer Drone"><span class="tx"><b>Ball Balancer Drone</b><i>JavaScript</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Recruitment ATS"><span class="tx"><b>Recruitment ATS</b><i>PWA</i></span></a><a class="gt" tabindex="-1" aria-hidden="true" href="#work" data-go="Autonomous 4WD Mapping Rover"><span class="tx"><b>Autonomous 4WD Rover</b><i>Raspberry Pi</i></span></a></div></div></div></div>
 </div></section>
 
 <section id="experience"><div class="wrap">
@@ -804,6 +846,22 @@ copy.addEventListener("click",function(){if(navigator.clipboard&&email){navigato
 d.querySelectorAll("[data-close]").forEach(function(x){x.addEventListener("click",function(){d.close()})});
 d.addEventListener("click",function(e){if(e.target===d)d.close()});
 d.addEventListener("close",function(){copy.textContent="Copy";email="";link.removeAttribute("href");link.textContent=""});
+})();
+</script>
+<script>
+(function(){
+var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+document.querySelectorAll("[data-go]").forEach(function(t){
+ t.addEventListener("click",function(e){
+  var key=t.dataset.go,el=null;
+  if(key==="agrisight")el=document.querySelector(".f-agri");
+  else if(key==="charcha")el=document.querySelector(".f-charcha");
+  else{el=[].slice.call(document.querySelectorAll(".proj details")).filter(function(d){return d.querySelector("summary h3").textContent.trim()===key})[0];if(el)el.open=true}
+  if(!el)return;
+  e.preventDefault();
+  el.scrollIntoView({behavior:reduce?"auto":"smooth",block:"center"});
+ });
+});
 })();
 </script>
 </body>
